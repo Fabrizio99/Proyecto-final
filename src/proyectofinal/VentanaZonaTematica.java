@@ -387,8 +387,8 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
             return;
         }
         if(VentanaAtraccion.verificarExistenciaElementos(registroZonas.elementoPorIndice(indice).getNombre()) ||
-                VentanaAtraccion.verificarExistenciaElementos(registroZonas.elementoPorIndice(indice).getNombre()) ||
-                VentanaAtraccion.verificarExistenciaElementos(registroZonas.elementoPorIndice(indice).getNombre())){
+                VentanaEspectaculo.verificarExistenciaElementos(registroZonas.elementoPorIndice(indice).getNombre()) ||
+                VentanaRestaurante.verificarExistenciaElementos(registroZonas.elementoPorIndice(indice).getNombre())){
             JOptionPane.showMessageDialog(null, "Existen restaurantes/espectuaculos/restaurantes registrados en esta zona");
             return;
         }
