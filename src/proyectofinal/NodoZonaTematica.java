@@ -4,12 +4,14 @@ public class NodoZonaTematica {
     private String nombre;
     private String descripcion;
     private String colorAsociado;
+    private String id;
     private NodoZonaTematica sgte;
     
     public NodoZonaTematica(){
         this.nombre        = "";
         this.descripcion   = "";
         this.colorAsociado = "";
+        this.id            = "";
         this.sgte          = null;
     }
 
@@ -44,4 +46,13 @@ public class NodoZonaTematica {
     public void setSgte(NodoZonaTematica sgte) {
         this.sgte = sgte;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
 }

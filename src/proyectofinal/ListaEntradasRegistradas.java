@@ -85,4 +85,12 @@ public class ListaEntradasRegistradas {
         }
         return precio;
     }
+    
+    /*public int entradaSolicitada(int indice){
+        int cant=0;
+         
+        cant=elementoPorIndice(indice).getCantidad();
+        return cant;  
+    
+    }*/
 }

@@ -5,8 +5,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaRestaurante extends javax.swing.JFrame {
+    static boolean editar                       = false;
     static ListaRestaurante registroRestaurante = new ListaRestaurante();
-    static Object[] objeto                      = new Object[5];
+    static Object[] objeto                      = new Object[6];
     boolean validarNuevo                        = false;
     boolean validarEditar                       = false;
     int indice                                  = 0;
@@ -43,7 +44,8 @@ public class VentanaRestaurante extends javax.swing.JFrame {
         cmpHoraCierre.setEnabled(validador);
         cmpPrecio.setEnabled(validador);
         cmbZona.setEnabled(validador);
-        if(validador) cmpNombre.requestFocus();
+        cmpid.setEnabled(validador);
+        if(validador) cmpid.requestFocus();
     }
     
     public void limpiarCampos(){
@@ -51,6 +53,7 @@ public class VentanaRestaurante extends javax.swing.JFrame {
         cmpHorario.setText("");
         cmpHoraCierre.setText("");
         cmpPrecio.setText("");
+        cmpid.setText("");
         cmbZona.setSelectedIndex(0);
     }
     
@@ -71,6 +74,9 @@ public class VentanaRestaurante extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaRegistro = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cmpNombre = new javax.swing.JTextField();
@@ -82,18 +88,39 @@ public class VentanaRestaurante extends javax.swing.JFrame {
         cmbZona = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         cmpHoraCierre = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        cmpid = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaRegistro = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 4));
+
+        tablaRegistro.setAutoCreateRowSorter(true);
+        tablaRegistro.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Nombre", "Hora Inicio", "Hora Cierre", "Precio Medio", "Zona Temática"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaRegistro);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 2, true), "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Corbel", 0, 18))); // NOI18N
 
@@ -137,6 +164,11 @@ public class VentanaRestaurante extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText(" id *");
+
+        cmpid.setEnabled(false);
+        cmpid.setOpaque(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -153,29 +185,41 @@ public class VentanaRestaurante extends javax.swing.JFrame {
                             .addComponent(cmbZona, 0, 97, Short.MAX_VALUE)
                             .addComponent(cmpPrecio)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(40, 40, 40)
+                        .addComponent(cmpHoraCierre))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(47, 47, 47)
+                        .addComponent(cmpHorario))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6))
-                        .addGap(40, 40, 40)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(61, 61, 61)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmpHorario, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cmpHoraCierre)
-                            .addComponent(cmpNombre))))
+                            .addComponent(cmpNombre)
+                            .addComponent(cmpid))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel7))
+                    .addComponent(cmpid))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cmpNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cmpHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(cmpHoraCierre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -219,27 +263,8 @@ public class VentanaRestaurante extends javax.swing.JFrame {
             }
         });
 
-        tablaRegistro.setAutoCreateRowSorter(true);
-        tablaRegistro.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre", "Hora Inicio", "Hora Cierre", "Precio Medio", "Zona Temática"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tablaRegistro);
-
         jPanel2.setBackground(new java.awt.Color(0, 119, 119));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 4));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 0));
 
         jLabel1.setFont(new java.awt.Font("Corbel", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
@@ -260,7 +285,7 @@ public class VentanaRestaurante extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
                 .addComponent(jLabel10))
         );
         jPanel2Layout.setVerticalGroup(
@@ -272,52 +297,63 @@ public class VentanaRestaurante extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(81, 81, 81))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
                         .addComponent(btnNuevo)
                         .addGap(18, 18, 18)
                         .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(btnEditar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEliminar))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        editar=false;
         if(VentanaZonaTematica.registroZonas.esVacia()){
             JOptionPane.showMessageDialog(null, "Debe registrar zonas temáticas para poder registrar un Restaurante");
             return;
@@ -328,16 +364,30 @@ public class VentanaRestaurante extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if(cmbZona.getSelectedIndex()==0 || cmpNombre.getText().equals("") || cmpHorario.getText().equals("") || cmpPrecio.getText().equals("")){
+        if(cmbZona.getSelectedIndex()==0 || cmpNombre.getText().equals("") || cmpHorario.getText().equals("") || cmpPrecio.getText().equals("") || cmpid.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Llene todo el formulario");
             return;
         }
+        if(editar == false){
+        if(registroRestaurante.validarRepetidos(cmpNombre.getText(),cmbZona.getSelectedItem()+"",cmpid.getText())){
         if(validarNuevo){
-            restaur = new Restaurante(cmpNombre.getText(), cmpHorario.getText(),cmpHoraCierre.getText(),Double.parseDouble(cmpPrecio.getText()),cmbZona.getSelectedItem()+"");
+            restaur = new Restaurante(cmpNombre.getText(), cmpHorario.getText(),cmpHoraCierre.getText(),Double.parseDouble(cmpPrecio.getText()),cmbZona.getSelectedItem()+"",cmpid.getText());
             registroRestaurante.insertarFinal(restaur);
             validarNuevo = false;
         }
+        validarBotones(false);
+        habilitarCampos(false);
+        limpiarCampos();
+        modelo.setRowCount(0);
+        registroRestaurante.insertarTabla();
+        VentanaPrincipal.validarZonas();
+        }else{
+            registroRestaurante.comprobar(cmpid.getText(), cmpNombre.getText(),cmbZona.getSelectedItem()+"");
+        }
+        }else{
+        if(registroRestaurante.validarNombre(cmpNombre.getText(), cmpid.getText(),cmbZona.getSelectedItem()+"")){
         if(validarEditar){
+            registroRestaurante.elementoPorIndice(indice).setId(cmpid.getText());
             registroRestaurante.elementoPorIndice(indice).setNombre(cmpNombre.getText());
             registroRestaurante.elementoPorIndice(indice).setHorarioInicio(cmpHorario.getText());
             registroRestaurante.elementoPorIndice(indice).setHorarioCierre(cmpHoraCierre.getText());
@@ -351,9 +401,14 @@ public class VentanaRestaurante extends javax.swing.JFrame {
         modelo.setRowCount(0);
         registroRestaurante.insertarTabla();
         VentanaPrincipal.validarZonas();
+        }else{
+        JOptionPane.showMessageDialog(null, "Espectaculo ya existente");
+        }
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+
         indice = tablaRegistro.getSelectedRow();
         if(indice == -1){
             JOptionPane.showMessageDialog(null, "Seleccione un espectaculo para editar.");
@@ -361,6 +416,7 @@ public class VentanaRestaurante extends javax.swing.JFrame {
         }
         
         NodoRestaurante datosRestaurante = registroRestaurante.elementoPorIndice(indice);
+        cmpid.setText(datosRestaurante.getId());
         cmpNombre.setText(datosRestaurante.getNombre());
         cmpHorario.setText(datosRestaurante.getHorarioInicio());
         cmpHoraCierre.setText(datosRestaurante.getHorarioCierre());
@@ -371,6 +427,8 @@ public class VentanaRestaurante extends javax.swing.JFrame {
         habilitarCampos(true);
         validarEditar = true;
         validarBotones(true);
+        cmpid.setEnabled(false);
+        editar=true;
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -431,6 +489,7 @@ public class VentanaRestaurante extends javax.swing.JFrame {
     public static javax.swing.JTextField cmpHorario;
     public static javax.swing.JTextField cmpNombre;
     public static javax.swing.JTextField cmpPrecio;
+    public static javax.swing.JTextField cmpid;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -438,8 +497,10 @@ public class VentanaRestaurante extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tablaRegistro;
     // End of variables declaration//GEN-END:variables

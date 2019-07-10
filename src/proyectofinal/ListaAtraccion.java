@@ -1,5 +1,7 @@
 package proyectofinal;
 
+import javax.swing.JOptionPane;
+
 public class ListaAtraccion {
     private NodoAtraccion top;
     private int tamano;
@@ -28,6 +30,7 @@ public class ListaAtraccion {
         nuevoNodo.setCapacidad(atrac.getCapacidad());
         nuevoNodo.setDuracion(atrac.getDuracion());
         nuevoNodo.setPrecio(atrac.getPrecio());
+        nuevoNodo.setId(atrac.getId());
         nuevoNodo.setZonaTematica(atrac.getZonaTematica());
         if (esVacia()) {
             top = nuevoNodo;
@@ -44,12 +47,13 @@ public class ListaAtraccion {
     public void insertarTabla(){
         NodoAtraccion temporal = top;
         while(temporal != null){
-            VentanaAtraccion.objeto[0] = temporal.getNombre();
-            VentanaAtraccion.objeto[1] = temporal.getCapacidad();
-            VentanaAtraccion.objeto[2] = temporal.getEstatura();
-            VentanaAtraccion.objeto[3] = temporal.getPrecio();
-            VentanaAtraccion.objeto[4] = temporal.getDuracion();
-            VentanaAtraccion.objeto[5] = temporal.getZonaTematica();
+            VentanaAtraccion.objeto[0] = temporal.getId();
+            VentanaAtraccion.objeto[1] = temporal.getNombre();
+            VentanaAtraccion.objeto[2] = temporal.getCapacidad();
+            VentanaAtraccion.objeto[3] = temporal.getEstatura();
+            VentanaAtraccion.objeto[4] = temporal.getPrecio();
+            VentanaAtraccion.objeto[5] = temporal.getDuracion();
+            VentanaAtraccion.objeto[6] = temporal.getZonaTematica();
             VentanaAtraccion.modelo.addRow(VentanaAtraccion.objeto);
             temporal = temporal.getSgte();
         }
@@ -95,4 +99,52 @@ public class ListaAtraccion {
             }
         }
     }
+    public boolean validarRepetidos(String nombre,String zona, String ID){
+        NodoAtraccion temporal = top;
+        boolean validador = true;
+        for (int i = 0; i < getTamano(); i++) {
+            if(temporal.getNombre().equals(nombre) && temporal.getZonaTematica().equals(zona) || temporal.getId().equals(ID) && temporal.getZonaTematica().equals(zona)){
+                validador = false;
+                break;
+                
+            }
+            temporal=temporal.getSgte();
+        }
+        return validador;
+    }
+    public boolean validarNombre(String nombre,String ID,String zona){
+        NodoAtraccion temporal = top;
+        boolean validador = true;
+        for (int i = 0; i < getTamano(); i++) {
+            if(temporal.getNombre().equals(nombre) && temporal.getId().equals(ID) && temporal.getZonaTematica().equals(zona)){
+                validador = true;
+                break; 
+            }else if(temporal.getNombre().equals(nombre) && !(temporal.getId().equals(ID)) && temporal.getZonaTematica().equals(zona)){
+            validador=false;
+            break;
+            }else{
+            validador=true;
+            }
+                
+            temporal=temporal.getSgte();
+        }
+        return validador;
+    }
+    
+     public void comprobar (String ID,String nombre , String zona){
+         NodoAtraccion temporal = top;
+     for (int i = 0; i < getTamano(); i++) {
+            if(temporal.getNombre().equals(nombre) && temporal.getId().equals(ID) && temporal.getZonaTematica().equals(zona))
+            {
+               JOptionPane.showMessageDialog(null, "Nombre e ID ya existe ");
+            }else if(temporal.getNombre().equals(nombre) && temporal.getZonaTematica().equals(zona)){
+             JOptionPane.showMessageDialog(null, "Nombre ya existe en la zona tematica");
+            }else if(temporal.getId().equals(ID) && temporal.getZonaTematica().equals(zona)){
+                
+                JOptionPane.showMessageDialog(null, "ID ya existe en la zona tematica");
+           
+     
+     }  
+}
+     }
 }

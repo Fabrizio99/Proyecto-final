@@ -7,14 +7,24 @@ public class Atraccion{
     private String duracion;
     private Double precio;
     private String zonaTematica;
+    private String id;
 
-    public Atraccion(String nombre, Double estatura, int capacidad, String duracion, String zonaTematica, Double precio) {
+    public Atraccion(String nombre, Double estaturaMinima, int capacidad, String duracion, Double precio, String zonaTematica, String id) {
         this.nombre = nombre;
-        this.estaturaMinima = estatura;
+        this.estaturaMinima = estaturaMinima;
         this.capacidad = capacidad;
         this.duracion = duracion;
-        this.zonaTematica = zonaTematica;
         this.precio = precio;
+        this.zonaTematica = zonaTematica;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNombre() {

@@ -1,5 +1,7 @@
 package proyectofinal;
 
+import javax.swing.JOptionPane;
+
 public class ListaZonaTematica {
     private NodoZonaTematica top;
     private int tamano;
@@ -21,8 +23,24 @@ public class ListaZonaTematica {
         this.tamano = tamano;
     }
     
+   
+    public boolean  validaRepetidos(String nombre, String ID){
+    NodoZonaTematica temporal = top;
+        boolean validador = true;
+        for (int i = 0; i < getTamano(); i++) {
+            if(temporal.getId().equals(ID) || (temporal.getNombre().equals(nombre) && !temporal.getId().equals(ID))){
+                validador = false;
+                break;
+                
+            }
+            temporal=temporal.getSgte();
+        }
+        return validador;
+    }
+    
     public void insertarFinal(ZonaTematica zona){
         NodoZonaTematica nuevoNodo = new NodoZonaTematica();
+        nuevoNodo.setId(zona.getId());
         nuevoNodo.setNombre(zona.getNombre());
         nuevoNodo.setDescripcion(zona.getDescripcion());
         nuevoNodo.setColorAsociado(zona.getColorAsociado());
@@ -42,9 +60,10 @@ public class ListaZonaTematica {
     public void insertarTabla(){
         NodoZonaTematica temporal = top;
         while(temporal != null){
-            VentanaZonaTematica.objeto[0] = temporal.getNombre();
-            VentanaZonaTematica.objeto[1] = temporal.getDescripcion();
-            VentanaZonaTematica.objeto[2] = temporal.getColorAsociado();
+            VentanaZonaTematica.objeto[0] = temporal.getId();
+            VentanaZonaTematica.objeto[1] = temporal.getNombre();
+            VentanaZonaTematica.objeto[2] = temporal.getDescripcion();
+            VentanaZonaTematica.objeto[3] = temporal.getColorAsociado();
             VentanaZonaTematica.modelo.addRow(VentanaZonaTematica.objeto);
             temporal = temporal.getSgte();
         }
@@ -69,4 +88,35 @@ public class ListaZonaTematica {
         }
         this.tamano--;
     }
+    
+    
+     public boolean validaNombre(String nombre,String ID){
+      NodoZonaTematica temporal = top;
+        boolean validador = true;
+        for (int i = 0; i < getTamano(); i++) {
+            if(temporal.getNombre().equals(nombre) && !temporal.getId().equals(ID)){
+            validador = false;
+            }
+                
+            temporal=temporal.getSgte();
+        }
+        return validador;}
+     
+     public void comprobar(String ID,String nombre){
+     NodoZonaTematica temporal = top;
+     for (int i = 0; i < getTamano(); i++) {
+         if(temporal.getNombre().equals(nombre) && temporal.getId().equals(ID)){
+         JOptionPane.showMessageDialog(null, "Nombre e ID ya existe ");
+         }else if(temporal.getNombre().equals(nombre)){
+             JOptionPane.showMessageDialog(null, "Existe una zona temática con ese nombre");
+            }else if(temporal.getId().equals(ID)){
+                
+                JOptionPane.showMessageDialog(null, "El ID ya ha sido registrado");
+            }
+     
+     }
+                
+            temporal=temporal.getSgte();
+     }
+    
 }

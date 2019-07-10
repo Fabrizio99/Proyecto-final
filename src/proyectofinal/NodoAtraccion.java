@@ -8,6 +8,7 @@ public class NodoAtraccion {
     private String zonaTematica;
     private Double precio;
     private NodoAtraccion sgte;
+    private String id;
 
     public NodoAtraccion() {
         this.nombre = "";
@@ -16,9 +17,11 @@ public class NodoAtraccion {
         this.duracion = "";
         this.zonaTematica = "";
         this.precio = 0.0;
+        this.id = "";
         this.sgte = null;
     }
 
+    
     public String getNombre() {
         return nombre;
     }
@@ -74,4 +77,13 @@ public class NodoAtraccion {
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
 }

@@ -6,6 +6,7 @@ public class NodoRestaurante {
     private String horarioCierre;
     private Double precioMedio;
     private String zonaTematica;
+    private String id;
     private NodoRestaurante sgte;
     
     public NodoRestaurante(){
@@ -14,9 +15,18 @@ public class NodoRestaurante {
         this.horarioCierre = "";
         this.precioMedio = 0.0;
         this.zonaTematica = "";
+        this.id="";
         this.sgte = null;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public String getNombre() {
         return nombre;
     }

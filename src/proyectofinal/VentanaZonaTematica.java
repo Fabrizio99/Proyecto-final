@@ -5,8 +5,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaZonaTematica extends javax.swing.JFrame {
+    static boolean editar                       = false;
     static ListaZonaTematica registroZonas = new ListaZonaTematica();
-    static Object[] objeto          = new Object[3];
+    static Object[] objeto          = new Object[4];
     boolean validarNuevo            = false;
     boolean validarEditar           = false;
     int indice                      = 0;
@@ -17,11 +18,15 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
         modelo = (DefaultTableModel) tablaZona.getModel();
         listaRegistroVacia();
         registroZonas.insertarTabla();
+       
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaZona = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -29,8 +34,8 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
         cmpNombre = new javax.swing.JTextField();
         cmpDescripcion = new javax.swing.JTextField();
         cmpColor = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaZona = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        cmpId = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -41,6 +46,34 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 4));
+
+        tablaZona.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Nombre", "Descripción", "Color Asociado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaZona);
+        if (tablaZona.getColumnModel().getColumnCount() > 0) {
+            tablaZona.getColumnModel().getColumn(0).setMinWidth(90);
+            tablaZona.getColumnModel().getColumn(0).setPreferredWidth(90);
+            tablaZona.getColumnModel().getColumn(0).setMaxWidth(90);
+            tablaZona.getColumnModel().getColumn(2).setMinWidth(100);
+            tablaZona.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tablaZona.getColumnModel().getColumn(2).setMaxWidth(100);
+        }
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 2, true), "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Corbel", 0, 18))); // NOI18N
 
@@ -79,6 +112,11 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Id");
+
+        cmpId.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -88,22 +126,28 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cmpNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                     .addComponent(cmpDescripcion)
-                    .addComponent(cmpColor))
+                    .addComponent(cmpColor)
+                    .addComponent(cmpId))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cmpNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel1)
+                    .addComponent(cmpId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cmpNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(cmpDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -111,34 +155,8 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cmpColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-
-        tablaZona.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre", "Descripción", "Color Asociado"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tablaZona);
-        if (tablaZona.getColumnModel().getColumnCount() > 0) {
-            tablaZona.getColumnModel().getColumn(0).setMinWidth(90);
-            tablaZona.getColumnModel().getColumn(0).setPreferredWidth(90);
-            tablaZona.getColumnModel().getColumn(0).setMaxWidth(90);
-            tablaZona.getColumnModel().getColumn(2).setMinWidth(100);
-            tablaZona.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tablaZona.getColumnModel().getColumn(2).setMaxWidth(100);
-        }
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -170,7 +188,7 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
         });
 
         jPanel1.setBackground(new java.awt.Color(0, 119, 119));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 4));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 0));
 
         jLabel2.setFont(new java.awt.Font("Corbel", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
@@ -191,7 +209,7 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jLabel9))
         );
         jPanel1Layout.setVerticalGroup(
@@ -200,44 +218,61 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(37, 37, 37))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnNuevo)
                         .addGap(18, 18, 18)
                         .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(btnEditar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnEliminar)
+                        .addGap(26, 26, 26)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -246,12 +281,14 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
         cmpNombre.setEnabled(validador);
         cmpDescripcion.setEnabled(validador);
         cmpColor.setEnabled(validador);
-        if(validador) cmpNombre.requestFocus();
+        cmpId.setEnabled(validador);
+        if(validador) cmpId.requestFocus();
     }
     public void limpiarCampos(){
         cmpNombre.setText("");
         cmpDescripcion.setText("");
         cmpColor.setText("");
+        cmpId.setText("");
     }
     
     public void listaRegistroVacia(){
@@ -271,16 +308,32 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
     }
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if(cmpNombre.getText().equals("") || cmpDescripcion.getText().equals("") || cmpColor.getText().equals("")){
+        if(cmpNombre.getText().equals("") || cmpDescripcion.getText().equals("") || cmpColor.getText().equals("") || cmpId.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Llene todo el formulario");
             return;
         }
+        if(editar==false){
+        if(registroZonas.validaRepetidos(cmpNombre.getText(), cmpId.getText())){
         if(validarNuevo){
-            zona = new ZonaTematica(cmpNombre.getText(), cmpDescripcion.getText(), cmpColor.getText());
+            zona = new ZonaTematica(cmpNombre.getText(), cmpDescripcion.getText(), cmpColor.getText(),cmpId.getText());
             registroZonas.insertarFinal(zona);
             validarNuevo = false;
         }
+        
+        validarBotones(false);
+        habilitarCampos(false);
+        limpiarCampos();
+        modelo.setRowCount(0);
+        registroZonas.insertarTabla();
+        VentanaPrincipal.validarZonas();
+        
+        }else{
+           registroZonas.comprobar(cmpId.getText(), cmpNombre.getText());
+        }
+        }else{
+          if(registroZonas.validaNombre(cmpNombre.getText(), cmpId.getText())){
         if(validarEditar){
+            registroZonas.elementoPorIndice(indice).setId(cmpId.getText());
             registroZonas.elementoPorIndice(indice).setNombre(cmpNombre.getText());
             registroZonas.elementoPorIndice(indice).setDescripcion(cmpDescripcion.getText());
             registroZonas.elementoPorIndice(indice).setColorAsociado(cmpColor.getText());
@@ -292,6 +345,10 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
         modelo.setRowCount(0);
         registroZonas.insertarTabla();
         VentanaPrincipal.validarZonas();
+        }else{
+        JOptionPane.showMessageDialog(null, "Zona Tematica ya existente");
+        }
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void cmpNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpNombreActionPerformed
@@ -302,6 +359,7 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
         habilitarCampos(true);
         validarBotones(true);
         validarNuevo = true;
+        editar=false;
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -311,12 +369,15 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
             return;
         }
         NodoZonaTematica datosZona = registroZonas.elementoPorIndice(indice);
+        cmpId.setText(datosZona.getId());
         cmpNombre.setText(datosZona.getNombre());
         cmpDescripcion.setText(datosZona.getDescripcion());
         cmpColor.setText(datosZona.getColorAsociado());
         habilitarCampos(true);
         validarEditar = true;
         validarBotones(true);
+        cmpId.setEnabled(false);
+        editar = true;
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -373,7 +434,9 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
     public static javax.swing.JButton btnNuevo;
     public static javax.swing.JTextField cmpColor;
     public static javax.swing.JTextField cmpDescripcion;
+    public static javax.swing.JTextField cmpId;
     public static javax.swing.JTextField cmpNombre;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -381,6 +444,7 @@ public class VentanaZonaTematica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tablaZona;
     // End of variables declaration//GEN-END:variables

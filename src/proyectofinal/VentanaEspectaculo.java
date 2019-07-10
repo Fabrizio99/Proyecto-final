@@ -6,10 +6,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class VentanaEspectaculo extends javax.swing.JFrame {
     static ListaEspectaculo registroEspectaculo = new ListaEspectaculo();
-    static Object[] objeto                      = new Object[6];
+    static Object[] objeto                      = new Object[7];
     boolean validarNuevo                        = false;
     boolean validarEditar                       = false;
     int indice                                  = 0;
+    static boolean editar                       = false;
     Espectaculo espec;
     static DefaultTableModel modelo;
     
@@ -26,6 +27,9 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaRegistro = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -39,8 +43,8 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
         cmbZona = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         cmpPrecio = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaRegistro = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        cmpId = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -61,6 +65,26 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 4));
+
+        tablaRegistro.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Nombre", "Tipo", "Duración", "Aforo", "Precio", "Zona Temática"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaRegistro);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 2, true), "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Corbel", 0, 18))); // NOI18N
 
@@ -109,6 +133,10 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setText("Id");
+
+        cmpId.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -118,12 +146,14 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel11))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmpDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(cmpDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                     .addComponent(cmpNombre)
-                    .addComponent(cmpPrecio))
+                    .addComponent(cmpPrecio)
+                    .addComponent(cmpId))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -136,8 +166,8 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmpAforo, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                            .addComponent(cmbZona, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(cmpAforo)
+                            .addComponent(cmbZona, 0, 106, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -145,42 +175,35 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cmpNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cmpDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(cmpAforo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(cmbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(cmpId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cmpNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cmpDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cmpPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
-
-        tablaRegistro.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre", "Tipo", "Duración", "Aforo", "Precio", "Zona Temática"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tablaRegistro);
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -212,7 +235,7 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
         });
 
         jPanel2.setBackground(new java.awt.Color(0, 119, 119));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 4));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 0));
 
         jLabel7.setBackground(new java.awt.Color(204, 204, 204));
         jLabel7.setFont(new java.awt.Font("Corbel", 1, 24)); // NOI18N
@@ -246,20 +269,16 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
                 .addGap(0, 1, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -268,23 +287,40 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnEliminar)
-                .addGap(70, 70, 70))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(122, 122, 122))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addContainerGap(53, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar)
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -313,7 +349,8 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
         cmbTipo.setEnabled(validador);
         cmbZona.setEnabled(validador);
         cmpPrecio.setEnabled(validador);
-        if(validador) cmpNombre.requestFocus();
+        cmpId.setEnabled(validador);
+        if(validador) cmpId.requestFocus();
     }
     
     public void limpiarCampos(){
@@ -323,6 +360,7 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
         cmpPrecio.setText("");
         cmbTipo.setSelectedIndex(0);
         cmbZona.setSelectedIndex(0);
+        cmpId.setText("");
     }
     
     public void listaRegistroVacia(){
@@ -340,6 +378,7 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
         btnEliminar.setEnabled(!validador);
     }
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        editar = false;
         if(VentanaZonaTematica.registroZonas.esVacia()){
             JOptionPane.showMessageDialog(null, "Debe registrar zonas temáticas para poder registrar un Espectáculo");
             return;
@@ -358,6 +397,7 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
         }
         
         NodoEspectaculo datosEspectaculo = registroEspectaculo.elementoPorIndice(indice);
+        cmpId.setText(datosEspectaculo.getId());
         cmpNombre.setText(datosEspectaculo.getNombre());
         cmpAforo.setText(datosEspectaculo.getAforoMax()+"");
         cmpDuracion.setText(datosEspectaculo.getDuracion()+"");
@@ -371,6 +411,9 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
         habilitarCampos(true);
         validarEditar = true;
         validarBotones(true);
+        cmpId.setEnabled(false);
+        //registroEspectaculo.EliminarNodo(indice);
+        editar = true;
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -389,16 +432,31 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if(cmbZona.getSelectedIndex()==0 || cmbTipo.getSelectedIndex()==0 || cmpNombre.getText().equals("") || cmpAforo.getText().equals("") || cmpDuracion.getText().equals("")){
+        if(cmbZona.getSelectedIndex()==0 || cmbTipo.getSelectedIndex()==0 || cmpNombre.getText().equals("") || cmpAforo.getText().equals("") || cmpDuracion.getText().equals("") || cmpId.getText().equals("")){
                  JOptionPane.showMessageDialog(null, "Llene todo el formulario");
                  return;
         }
+        if(editar == false){
+        if(registroEspectaculo.validarRepetidos(cmpNombre.getText(), cmbZona.getSelectedItem()+"", cmpId.getText())){
         if(validarNuevo){
-            espec = new Espectaculo(cmpNombre.getText(), cmbTipo.getSelectedItem()+"", cmpDuracion.getText(), Integer.parseInt(cmpAforo.getText()), cmbZona.getSelectedItem()+"",Double.parseDouble(cmpPrecio.getText()));
+            espec = new Espectaculo(cmpNombre.getText(), cmbTipo.getSelectedItem()+"", cmpDuracion.getText(),Double.parseDouble(cmpPrecio.getText()), cmbZona.getSelectedItem()+"", Integer.parseInt(cmpAforo.getText()),cmpId.getText());
             registroEspectaculo.insertarFinal(espec);
             validarNuevo = false;
+        }  
+        validarBotones(false);
+        habilitarCampos(false);
+        limpiarCampos();
+        modelo.setRowCount(0);
+        registroEspectaculo.insertarTabla();
+        VentanaPrincipal.validarZonas();
+        }else{
+            registroEspectaculo.comprobar(cmpId.getText(), cmpNombre.getText(), cmbZona.getSelectedItem()+"");
         }
+        }else{
+            
+        if(registroEspectaculo.validarNombre(cmpNombre.getText(), cmpId.getText(),cmbZona.getSelectedItem()+"")){
         if(validarEditar){
+            registroEspectaculo.elementoPorIndice(indice).setId(cmpId.getText());
             registroEspectaculo.elementoPorIndice(indice).setNombre(cmpNombre.getText());
             registroEspectaculo.elementoPorIndice(indice).setTipo(cmbTipo.getSelectedItem()+"");
             registroEspectaculo.elementoPorIndice(indice).setDuracion(cmpDuracion.getText());
@@ -406,13 +464,21 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
             registroEspectaculo.elementoPorIndice(indice).setZonaTematica(cmbZona.getSelectedItem()+"");
             registroEspectaculo.elementoPorIndice(indice).setPrecio(Double.parseDouble(cmpPrecio.getText()));
             validarEditar = false;
-        }
-        validarBotones(false);
+             validarBotones(false);
         habilitarCampos(false);
         limpiarCampos();
         modelo.setRowCount(0);
         registroEspectaculo.insertarTabla();
         VentanaPrincipal.validarZonas();
+            
+        }
+        }else{
+        JOptionPane.showMessageDialog(null, "Espectaculo ya existente");
+        }
+       
+        
+        }
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void cmpNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpNombreKeyTyped
@@ -470,10 +536,12 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
     public static javax.swing.JComboBox cmbZona;
     public static javax.swing.JTextField cmpAforo;
     public static javax.swing.JTextField cmpDuracion;
+    public static javax.swing.JTextField cmpId;
     public static javax.swing.JTextField cmpNombre;
     public static javax.swing.JTextField cmpPrecio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -484,6 +552,7 @@ public class VentanaEspectaculo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tablaRegistro;
     // End of variables declaration//GEN-END:variables

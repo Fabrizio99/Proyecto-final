@@ -1,5 +1,7 @@
 package proyectofinal;
 
+import javax.swing.JOptionPane;
+
 public class ListaEspectaculo {
     private NodoEspectaculo top;
     private int tamano;
@@ -29,6 +31,7 @@ public class ListaEspectaculo {
         nuevoNodo.setTipo(espec.getTipo());
         nuevoNodo.setZonaTematica(espec.getZonaTematica());
         nuevoNodo.setPrecio(espec.getPrecio());
+        nuevoNodo.setId(espec.getId());
         if (esVacia()) {
             top = nuevoNodo;
         } else {
@@ -44,12 +47,13 @@ public class ListaEspectaculo {
     public void insertarTabla(){
         NodoEspectaculo temporal = top;
         while(temporal != null){
-            VentanaEspectaculo.objeto[0] = temporal.getNombre();
-            VentanaEspectaculo.objeto[1] = temporal.getTipo();
-            VentanaEspectaculo.objeto[2] = temporal.getDuracion();
-            VentanaEspectaculo.objeto[3] = temporal.getAforoMax();
-            VentanaEspectaculo.objeto[4] = temporal.getPrecio();
-            VentanaEspectaculo.objeto[5] = temporal.getZonaTematica();
+            VentanaEspectaculo.objeto[0] = temporal.getId();
+            VentanaEspectaculo.objeto[1] = temporal.getNombre();
+            VentanaEspectaculo.objeto[2] = temporal.getTipo();
+            VentanaEspectaculo.objeto[3] = temporal.getDuracion();
+            VentanaEspectaculo.objeto[4] = temporal.getAforoMax();
+            VentanaEspectaculo.objeto[5] = temporal.getPrecio();
+            VentanaEspectaculo.objeto[6] = temporal.getZonaTematica();
             VentanaEspectaculo.modelo.addRow(VentanaEspectaculo.objeto);
             temporal = temporal.getSgte();
         }
@@ -95,4 +99,76 @@ public class ListaEspectaculo {
             }
         }
     }
+    public boolean validarRepetidos(String nombre,String zona,String ID){
+        NodoEspectaculo temporal = top;
+        boolean validador = true;
+        for (int i = 0; i < getTamaño(); i++) {
+            if(temporal.getNombre().equals(nombre) && temporal.getZonaTematica().equals(zona) || temporal.getId().equals(ID) && temporal.getZonaTematica().equals(zona)){
+                validador = false;
+                break;
+                
+            }
+            temporal=temporal.getSgte();
+        }
+        return validador;
+    }
+    
+
+    public boolean validarNombre(String nombre,String ID,String zona){
+        NodoEspectaculo temporal = top;
+        boolean validador = true;
+        for (int i = 0; i < getTamaño(); i++) {
+            if(temporal.getNombre().equals(nombre) && temporal.getId().equals(ID) && temporal.getZonaTematica().equals(zona)){
+                validador = true;
+                break; 
+            }else if(temporal.getNombre().equals(nombre) && !(temporal.getId().equals(ID)) && temporal.getZonaTematica().equals(zona)){
+            validador=false;
+            break;
+            }else{
+            validador=true;
+            }
+                
+            temporal=temporal.getSgte();
+        }
+        return validador;
+    }
+    
+    public boolean validarID(String nombre,String ID){
+        NodoEspectaculo temporal = top;
+        boolean validador = true;
+        for (int i = 0; i < getTamaño(); i++) {
+            if(temporal.getNombre().equals(nombre) && temporal.getId().equals(ID)){
+                validador = false;
+                break;
+                
+            }
+            temporal=temporal.getSgte();
+        }
+        return validador;
+    }
+    
+    
+     public NodoEspectaculo encontrarID(String ID){
+        for (int i = 0; i < getTamaño(); i++) {
+            if(elementoPorIndice(i).getId().equals(ID))   return elementoPorIndice(i);
+        }
+        return null;
+    }
+     public void comprobar (String ID,String nombre , String zona){
+         NodoEspectaculo temporal = top;
+     for (int i = 0; i < getTamaño(); i++) {
+            if(temporal.getNombre().equals(nombre) && temporal.getId().equals(ID) && temporal.getZonaTematica().equals(zona))
+            {
+               JOptionPane.showMessageDialog(null, "Nombre e ID ya existe ");
+            }else if(temporal.getNombre().equals(nombre) && temporal.getZonaTematica().equals(zona)){
+             JOptionPane.showMessageDialog(null, "Nombre ya existe en la zona tematica");
+            }else if(temporal.getId().equals(ID) && temporal.getZonaTematica().equals(zona)){
+                
+                JOptionPane.showMessageDialog(null, "ID ya existe en la zona tematica");
+           
+     
+     }  
+}
+     }
+   
 }

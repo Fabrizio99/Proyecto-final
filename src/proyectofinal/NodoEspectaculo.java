@@ -7,6 +7,7 @@ public class NodoEspectaculo {
     private int aforoMax;
     private String zonaTematica;
     private Double precio;
+    private String id;
     private NodoEspectaculo sgte;
     
     public NodoEspectaculo(){
@@ -17,6 +18,7 @@ public class NodoEspectaculo {
         this.zonaTematica = "";
         this.precio = 0.0;
         this.sgte = null;
+        this.id = "";
     }
 
     public String getZonaTematica() {
@@ -73,6 +75,14 @@ public class NodoEspectaculo {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
     
 }
